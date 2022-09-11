@@ -1,18 +1,18 @@
 package getMqttConfigInfoByAppkey
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"fmt"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
+)
 
 const Url = "/v1/commonService/getMqttConfigInfoByAppkey"
 const Disabled = false
 
 const (
-	WebAppKey = "B0455FBE7AA0328DB57B59AA729F05D8"
+	WebAppKey   = "B0455FBE7AA0328DB57B59AA729F05D8"
 	LoginAppKey = "93D72E60331ABDCDC7B39ADC2D1F32B3"
 )
 

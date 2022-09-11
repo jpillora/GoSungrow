@@ -1,15 +1,15 @@
 package api
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"fmt"
 	"net/url"
 	"reflect"
 	"strconv"
 	"strings"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+)
 
 type Api struct{}
 
@@ -61,7 +61,7 @@ func GetStructKeys(ref interface{}, keys ...string) UnitValueMap {
 	ret := make(UnitValueMap)
 
 	for _, k := range apiReflect.GetStructKeys(ref, keys...) {
-		p := UnitValue { Value: k.Value, Unit: "" }
+		p := UnitValue{Value: k.Value, Unit: ""}
 		if k.Type.Name() == "UnitValue" {
 			// v = JsonToUnitValue(k.JsonValue).Value
 			// u = JsonToUnitValue(k.JsonValue).Unit
@@ -70,7 +70,7 @@ func GetStructKeys(ref interface{}, keys ...string) UnitValueMap {
 			p.Value, p.Unit = DivideByThousandIfRequired(p.Value, p.Unit)
 		}
 
-		k.JsonName = strings.TrimSuffix(k.JsonName, "_map")	// Bit of a hack, but hey... @TODO - Future self take note.
+		k.JsonName = strings.TrimSuffix(k.JsonName, "_map") // Bit of a hack, but hey... @TODO - Future self take note.
 		ret[k.JsonName] = p
 	}
 
@@ -80,15 +80,15 @@ func GetStructKeys(ref interface{}, keys ...string) UnitValueMap {
 // DivideByThousandIfRequired Sigh.... Another dodgy one.
 func DivideByThousandIfRequired(value string, unit string) (string, string) {
 	switch unit {
-		case "Wh":
-			fallthrough
-		case "W":
-			fv, err := strconv.ParseFloat(value, 64)
-			if err == nil {
-				fv = fv / 1000
-				value, _ = DivideByThousand(value)
-				unit = "k" + unit
-			}
+	case "Wh":
+		fallthrough
+	case "W":
+		fv, err := strconv.ParseFloat(value, 64)
+		if err == nil {
+			fv = fv / 1000
+			value, _ = DivideByThousand(value)
+			unit = "k" + unit
+		}
 	}
 
 	return value, unit

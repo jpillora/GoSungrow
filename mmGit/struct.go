@@ -1,13 +1,13 @@
 package mmGit
 
 import (
-	"GoSungrow/Only"
 	"errors"
+
 	"github.com/go-git/go-billy/v5"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/storage/memory"
+	"github.com/jpillora/GoSungrow/Only"
 )
-
 
 type Git struct {
 	Username string
@@ -18,12 +18,12 @@ type Git struct {
 	RepoDir  string
 	DiffCmd  string
 
-	repo   *git.Repository
+	repo *git.Repository
 
 	modeMemory bool
-	worktree *git.Worktree
-	storer *memory.Storage
-	fs    billy.Filesystem
+	worktree   *git.Worktree
+	storer     *memory.Storage
+	fs         billy.Filesystem
 
 	Error error
 }

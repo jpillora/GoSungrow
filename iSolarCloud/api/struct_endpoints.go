@@ -1,14 +1,14 @@
 package api
 
 import (
-	"GoSungrow/Only"
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/olekukonko/tablewriter"
 	"sort"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/olekukonko/tablewriter"
+)
 
 type TypeEndPoints map[EndPointName]EndPoint // Map of EndPoints by endpoint name.
 

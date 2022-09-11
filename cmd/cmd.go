@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
 	"github.com/spf13/cobra"
 )
-
 
 func AttachRootCmd(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
@@ -85,7 +85,6 @@ func AttachRootCmd(cmd *cobra.Command) *cobra.Command {
 
 	return rootCmd
 }
-
 
 func gbRootFunc(cmd *cobra.Command, args []string) {
 	for range Only.Once {

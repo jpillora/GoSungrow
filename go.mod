@@ -1,4 +1,4 @@
-module GoSungrow
+module github.com/jpillora/GoSungrow
 
 go 1.17
 

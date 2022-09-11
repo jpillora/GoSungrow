@@ -1,39 +1,39 @@
 package mmHa
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api"
 	"encoding/json"
 	"errors"
 	"fmt"
-	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"net/url"
 	"time"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
 )
 
-
 type Mqtt struct {
-	ClientId      string `json:"client_id"`
-	Username      string `json:"username"`
-	Password      string `json:"password"`
-	Host          string `json:"host"`
-	Port          string `json:"port"`
-	Timeout  time.Duration `json:"timeout"`
-	EntityPrefix string `json:"entity_prefix"`
+	ClientId     string        `json:"client_id"`
+	Username     string        `json:"username"`
+	Password     string        `json:"password"`
+	Host         string        `json:"host"`
+	Port         string        `json:"port"`
+	Timeout      time.Duration `json:"timeout"`
+	EntityPrefix string        `json:"entity_prefix"`
 
 	url           *url.URL
 	client        mqtt.Client
 	pubClient     mqtt.Client
 	clientOptions *mqtt.ClientOptions
 	LastRefresh   time.Time `json:"-"`
-	PsId          int64 `json:"-"`
+	PsId          int64     `json:"-"`
 
 	Device Device
 
-	servicePrefix string
-	sensorPrefix string
-	lightPrefix string
-	switchPrefix string
+	servicePrefix      string
+	sensorPrefix       string
+	lightPrefix        string
+	switchPrefix       string
 	binarySensorPrefix string
 
 	token    mqtt.Token
@@ -130,7 +130,7 @@ func (m *Mqtt) setUrl(req Mqtt) error {
 			m.Password,
 			m.Host,
 			m.Port,
-			)
+		)
 		m.url, m.err = url.Parse(u)
 	}
 
@@ -174,12 +174,12 @@ func (m *Mqtt) Connect() error {
 			m.ClientId = "GoSunGrow"
 		}
 
-		device := Config {
+		device := Config{
 			Entry:      m.servicePrefix,
 			Name:       m.ClientId,
-			UniqueId:   m.ClientId, 	// + "_Service",
-			StateTopic:   "~/state",
-			DeviceConfig: DeviceConfig {
+			UniqueId:   m.ClientId, // + "_Service",
+			StateTopic: "~/state",
+			DeviceConfig: DeviceConfig{
 				Identifiers:  []string{"GoSunGrow"},
 				SwVersion:    "GoSunGrow https://github.com/MickMake/GoSungrow",
 				Name:         m.ClientId + " Service",
@@ -258,7 +258,6 @@ func (m *Mqtt) Publish(topic string, qos byte, retained bool, payload interface{
 	return m.err
 }
 
-
 // func (m *Mqtt) PublishConfig(config EntityConfig) error {
 // 	// func (m *Mqtt) PublishConfig(t string, id string, name string, subName string, units string, valueName string, class string) error {
 // 	switch config.Type {
@@ -284,16 +283,16 @@ func (m *Mqtt) PublishState(Type string, subtopic string, payload interface{}) e
 		// st := JoinStringsForTopic(m.sensorPrefix, JoinStringsForId(m.EntityPrefix, m.Device.FullName, strings.ReplaceAll(subName, "/", ".")), "state")
 		topic := ""
 		switch Type {
-			case "sensor":
-				topic = JoinStringsForTopic(m.sensorPrefix, subtopic, "state")
-			case "binary_sensor":
-				topic = JoinStringsForTopic(m.binarySensorPrefix, subtopic, "state")
-			case "lights":
-				topic = JoinStringsForTopic(m.lightPrefix, subtopic, "state")
-			case "switch":
-				topic = JoinStringsForTopic(m.switchPrefix, subtopic, "state")
-			default:
-				topic = JoinStringsForTopic(m.sensorPrefix, subtopic, "state")
+		case "sensor":
+			topic = JoinStringsForTopic(m.sensorPrefix, subtopic, "state")
+		case "binary_sensor":
+			topic = JoinStringsForTopic(m.binarySensorPrefix, subtopic, "state")
+		case "lights":
+			topic = JoinStringsForTopic(m.lightPrefix, subtopic, "state")
+		case "switch":
+			topic = JoinStringsForTopic(m.switchPrefix, subtopic, "state")
+		default:
+			topic = JoinStringsForTopic(m.sensorPrefix, subtopic, "state")
 		}
 
 		t := m.client.Publish(topic, 0, true, payload)
@@ -381,26 +380,25 @@ func (m *Mqtt) SetDeviceConfig(swname string, id string, name string, model stri
 	for range Only.Once {
 		id = JoinStringsForId(m.EntityPrefix, id)
 
-		m.Device = Device {
-			Connections:  [][]string{
+		m.Device = Device{
+			Connections: [][]string{
 				{swname, id},
 			},
-			Identifiers:  []string{id},
-			Manufacturer: vendor,
-			Model:        model,
-			Name:         name,
-			SwVersion:    swname + " https://github.com/MickMake/" + swname,
-			ViaDevice:    swname,
+			Identifiers:   []string{id},
+			Manufacturer:  vendor,
+			Model:         model,
+			Name:          name,
+			SwVersion:     swname + " https://github.com/MickMake/" + swname,
+			ViaDevice:     swname,
 			SuggestedArea: area,
 		}
 	}
 	return m.err
 }
 
-
 type MqttState struct {
 	LastReset string `json:"last_reset,omitempty"`
-	Value string `json:"value"`
+	Value     string `json:"value"`
 }
 
 func (mq *MqttState) Json() string {
@@ -416,7 +414,6 @@ func (mq *MqttState) Json() string {
 	return ret
 }
 
-
 type Availability struct {
 	PayloadAvailable    string `json:"payload_available,omitempty" required:"false"`
 	PayloadNotAvailable string `json:"payload_not_available,omitempty" required:"false"`
@@ -424,7 +421,6 @@ type Availability struct {
 	ValueTemplate       string `json:"value_template,omitempty" required:"false"`
 }
 type SensorState string
-
 
 func (m *Mqtt) GetLastReset(pointType string) string {
 	var ret string
@@ -443,30 +439,29 @@ func (m *Mqtt) GetLastReset(pointType string) string {
 	return ret
 }
 
-
 type EntityConfig struct {
 	// Type          string
-	Name          string
-	SubName       string
+	Name    string
+	SubName string
 
-	ParentId      string
-	ParentName    string
+	ParentId   string
+	ParentName string
 
-	UniqueId string
-	FullId   string
-	Units    string
-	ValueName     string
-	DeviceClass   string
-	StateClass    string
-	Icon          string
+	UniqueId    string
+	FullId      string
+	Units       string
+	ValueName   string
+	DeviceClass string
+	StateClass  string
+	Icon        string
 
 	Value         string
 	ValueTemplate string
 
-	LastReset     string
+	LastReset              string
 	LastResetValueTemplate string
 
-	haType        string
+	haType string
 }
 
 func (config *EntityConfig) IsSensor() bool {
@@ -535,7 +530,6 @@ func (config *EntityConfig) IsLight() bool {
 	return ok
 }
 
-
 func (config *EntityConfig) FixConfig() {
 
 	for range Only.Once {
@@ -551,70 +545,70 @@ func (config *EntityConfig) FixConfig() {
 		// mdi:check-circle-outline | mdi:arrow-right-bold
 
 		switch config.Units {
-			case LabelBinarySensor:
-				config.DeviceClass = SetDefault(config.DeviceClass, "power")
-				config.Icon = SetDefault(config.Icon, "mdi:check-circle-outline")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value }}")
+		case LabelBinarySensor:
+			config.DeviceClass = SetDefault(config.DeviceClass, "power")
+			config.Icon = SetDefault(config.Icon, "mdi:check-circle-outline")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value }}")
 
-			case "MW":
-				fallthrough
-			case "kW":
-				fallthrough
-			case "W":
-				config.DeviceClass = SetDefault(config.DeviceClass, "power")
-				config.Icon = SetDefault(config.Icon, "mdi:lightning-bolt")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
-				// config.ValueTemplate = SetDefault(config.ValueTemplate, fmt.Sprintf("{{ value_json.%s | float }}", config.ValueName))
-				// - Used with merged values.
+		case "MW":
+			fallthrough
+		case "kW":
+			fallthrough
+		case "W":
+			config.DeviceClass = SetDefault(config.DeviceClass, "power")
+			config.Icon = SetDefault(config.Icon, "mdi:lightning-bolt")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+			// config.ValueTemplate = SetDefault(config.ValueTemplate, fmt.Sprintf("{{ value_json.%s | float }}", config.ValueName))
+			// - Used with merged values.
 
-			case "MWh":
-				fallthrough
-			case "kWh":
-				fallthrough
-			case "Wh":
-				config.DeviceClass = SetDefault(config.DeviceClass, "energy")
-				config.Icon = SetDefault(config.Icon, "mdi:lightning-bolt")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+		case "MWh":
+			fallthrough
+		case "kWh":
+			fallthrough
+		case "Wh":
+			config.DeviceClass = SetDefault(config.DeviceClass, "energy")
+			config.Icon = SetDefault(config.Icon, "mdi:lightning-bolt")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
 
-			case "kvar":
-				config.DeviceClass = SetDefault(config.DeviceClass, "reactive_power")
-				config.Icon = SetDefault(config.Icon, "mdi:lightning-bolt")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+		case "kvar":
+			config.DeviceClass = SetDefault(config.DeviceClass, "reactive_power")
+			config.Icon = SetDefault(config.Icon, "mdi:lightning-bolt")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
 
-			case "Hz":
-				config.DeviceClass = SetDefault(config.DeviceClass, "frequency")
-				config.Icon = SetDefault(config.Icon, "mdi:sine-wave")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+		case "Hz":
+			config.DeviceClass = SetDefault(config.DeviceClass, "frequency")
+			config.Icon = SetDefault(config.Icon, "mdi:sine-wave")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
 
-			case "V":
-				config.DeviceClass = SetDefault(config.DeviceClass, "voltage")
-				config.Icon = SetDefault(config.Icon, "mdi:current-dc")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+		case "V":
+			config.DeviceClass = SetDefault(config.DeviceClass, "voltage")
+			config.Icon = SetDefault(config.Icon, "mdi:current-dc")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
 
-			case "A":
-				config.DeviceClass = SetDefault(config.DeviceClass, "current")
-				config.Icon = SetDefault(config.Icon, "mdi:current-ac")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+		case "A":
+			config.DeviceClass = SetDefault(config.DeviceClass, "current")
+			config.Icon = SetDefault(config.Icon, "mdi:current-ac")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
 
-			case "°C":
-				fallthrough
-			case "C":
-				fallthrough
-			case "℃":
-				config.DeviceClass = SetDefault(config.DeviceClass, "temperature")
-				config.Units = "°C"
-				config.Icon = SetDefault(config.Icon, "mdi:thermometer")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+		case "°C":
+			fallthrough
+		case "C":
+			fallthrough
+		case "℃":
+			config.DeviceClass = SetDefault(config.DeviceClass, "temperature")
+			config.Units = "°C"
+			config.Icon = SetDefault(config.Icon, "mdi:thermometer")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
 
-			case "%":
-				config.DeviceClass = SetDefault(config.DeviceClass, "battery")
-				config.Icon = SetDefault(config.Icon, "mdi:home-battery-outline")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
+		case "%":
+			config.DeviceClass = SetDefault(config.DeviceClass, "battery")
+			config.Icon = SetDefault(config.Icon, "mdi:home-battery-outline")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value | float }}")
 
-			default:
-				config.DeviceClass = SetDefault(config.DeviceClass, "")
-				config.Icon = SetDefault(config.Icon, "")
-				config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value }}")
+		default:
+			config.DeviceClass = SetDefault(config.DeviceClass, "")
+			config.Icon = SetDefault(config.Icon, "")
+			config.ValueTemplate = SetDefault(config.ValueTemplate, "{{ value_json.value }}")
 		}
 
 		if config.LastReset != "" {

@@ -1,12 +1,13 @@
 package getPsList
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"fmt"
 	"time"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 const Url = "/v1/powerStationService/getPsList"
@@ -97,14 +98,14 @@ type ResultData struct {
 		P83055                 interface{}   `json:"p83055" PointId:"p83055" PointType:""`
 		P83067                 interface{}   `json:"p83067" PointId:"p83067" PointType:""`
 		P83070                 interface{}   `json:"p83070" PointId:"p83070" PointType:""`
-		P83076                 float64       `json:"p83076" PointId:"p83076" PointType:""`		// Dupe of PvPower
+		P83076                 float64       `json:"p83076" PointId:"p83076" PointType:""` // Dupe of PvPower
 		P83077                 float64       `json:"p83077" PointId:"p83077" PointType:""`
-		P83081                 float64       `json:"p83081" PointId:"p83081" PointType:""`		// Dupe of EsPower
-		P83089                 float64       `json:"p83089" PointId:"p83089" PointType:""`		// Dupe of EsDisenergy
-		P83095                 float64       `json:"p83095" PointId:"p83095" PointType:""`		// Dupe of EsTotalDisenergy
-		P83118                 float64       `json:"p83118" PointId:"p83118" PointType:""`		// Dupe of UseEnergy
-		P83120                 float64       `json:"p83120" PointId:"p83120" PointType:""`		// Dupe of EsEnergy
-		P83127                 float64       `json:"p83127" PointId:"p83127" PointType:""`		// Dupe of EsTotalEnergy
+		P83081                 float64       `json:"p83081" PointId:"p83081" PointType:""` // Dupe of EsPower
+		P83089                 float64       `json:"p83089" PointId:"p83089" PointType:""` // Dupe of EsDisenergy
+		P83095                 float64       `json:"p83095" PointId:"p83095" PointType:""` // Dupe of EsTotalDisenergy
+		P83118                 float64       `json:"p83118" PointId:"p83118" PointType:""` // Dupe of UseEnergy
+		P83120                 float64       `json:"p83120" PointId:"p83120" PointType:""` // Dupe of EsEnergy
+		P83127                 float64       `json:"p83127" PointId:"p83127" PointType:""` // Dupe of EsTotalEnergy
 		ParamCo2               float64       `json:"param_co2" PointId:"param_co2" PointType:""`
 		ParamCoal              float64       `json:"param_coal" PointId:"param_coal" PointType:""`
 		ParamIncome            float64       `json:"param_income" PointId:"param_income" PointType:""`
@@ -501,7 +502,7 @@ func (e *EndPoint) GetDataTable() output.Table {
 			_ = table.AddRow(now, fmt.Sprintf("%d.%d", p.PsID, 0), "Use Energy", p.UseEnergy.Value, p.UseEnergy.Unit)
 		}
 
-		table.InitGraph(output.GraphRequest {
+		table.InitGraph(output.GraphRequest{
 			Title:        "",
 			TimeColumn:   output.SetInteger(1),
 			SearchColumn: output.SetInteger(2),

@@ -1,12 +1,13 @@
 package api
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 
 	// "GoSungrow/iSolarCloud/AppService/login"
 	"bytes"
@@ -16,7 +17,6 @@ import (
 	"io/ioutil"
 	"net/http"
 )
-
 
 type Web struct {
 	Url   EndPointUrl
@@ -30,7 +30,6 @@ type Web struct {
 	httpRequest  *http.Request
 	httpResponse *http.Response
 }
-
 
 func (w *Web) SetUrl(u string) error {
 	w.Url = SetUrl(u)

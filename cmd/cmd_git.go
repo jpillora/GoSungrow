@@ -1,17 +1,17 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
-	"github.com/spf13/cobra"
 	"strings"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/spf13/cobra"
+)
 
 func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
 	var cmdGit = &cobra.Command{
-		Use: "git",
+		Use:                   "git",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Git related commands."),
 		Long:                  fmt.Sprintf("Git related commands. "),
@@ -23,7 +23,6 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 	}
 	cmd.AddCommand(cmdGit)
 	cmdGit.Example = PrintExamples(cmdGit, "clone", "ls -la", "diff foo.json", "commit")
-
 
 	// ******************************************************************************** //
 	var cmdSave = &cobra.Command{
@@ -42,7 +41,7 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 
 	// ******************************************************************************** //
 	var cmdGitClone = &cobra.Command{
-		Use: "clone",
+		Use:                   "clone",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Clone git repo."),
 		Long:                  fmt.Sprintf("Clone git repo. "),
@@ -57,7 +56,7 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 
 	// ******************************************************************************** //
 	var cmdGitCommit = &cobra.Command{
-		Use: "commit [message]",
+		Use:                   "commit [message]",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Commit git changes."),
 		Long:                  fmt.Sprintf("Commit git changes. "),
@@ -72,7 +71,7 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 
 	// ******************************************************************************** //
 	var cmdGitAdd = &cobra.Command{
-		Use: "add <filename>",
+		Use:                   "add <filename>",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Add files to Git repo."),
 		Long:                  fmt.Sprintf("Add files to Git repo. "),
@@ -87,7 +86,7 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 
 	// ******************************************************************************** //
 	var cmdGitPull = &cobra.Command{
-		Use: "pull",
+		Use:                   "pull",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Pull Git repo."),
 		Long:                  fmt.Sprintf("Pull Git repo. "),
@@ -102,7 +101,7 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 
 	// ******************************************************************************** //
 	var cmdGitPush = &cobra.Command{
-		Use: "push",
+		Use:                   "push",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Push Git repo."),
 		Long:                  fmt.Sprintf("Push Git repo. "),
@@ -117,7 +116,7 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 
 	// ******************************************************************************** //
 	var cmdGitDiff = &cobra.Command{
-		Use: "diff <filename>",
+		Use:                   "diff <filename>",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Show diffs between current and last version."),
 		Long:                  fmt.Sprintf("Show diffs between current and last version. "),
@@ -162,7 +161,6 @@ func AttachCmdGit(cmd *cobra.Command) *cobra.Command {
 
 	return cmdGit
 }
-
 
 func cmdGitFunc(cmd *cobra.Command, args []string) {
 	for range Only.Once {

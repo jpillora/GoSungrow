@@ -1,11 +1,12 @@
 package getPsDetailWithPsType
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 const Url = "/v1/powerStationService/getPsDetailWithPsType"

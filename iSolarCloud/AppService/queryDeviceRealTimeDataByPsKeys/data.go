@@ -1,11 +1,12 @@
 package queryDeviceRealTimeDataByPsKeys
 
 import (
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 const Url = "/v1/devService/queryDeviceRealTimeDataByPsKeys"
@@ -23,7 +24,6 @@ func (rd RequestData) Help() string {
 	ret := fmt.Sprintf("")
 	return ret
 }
-
 
 type ResultData struct {
 	Dummy string `json:"dummy"`

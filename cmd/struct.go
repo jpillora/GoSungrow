@@ -1,27 +1,27 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud"
-	"GoSungrow/iSolarCloud/AppService/login"
-	"GoSungrow/lsgo"
-	"GoSungrow/mmGit"
-	"GoSungrow/mmHa"
 	"errors"
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
 	"strings"
 	"time"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/login"
+	"github.com/jpillora/GoSungrow/lsgo"
+	"github.com/jpillora/GoSungrow/mmGit"
+	"github.com/jpillora/GoSungrow/mmHa"
+	"github.com/spf13/cobra"
+)
 
 var DefaultAreas = []string{"all"}
 
 type CommandArgs struct {
 	SunGrow *iSolarCloud.SunGrow
-	Git *mmGit.Git
-	Mqtt *mmHa.Mqtt
+	Git     *mmGit.Git
+	Mqtt    *mmHa.Mqtt
 
 	ConfigDir   string
 	CacheDir    string
@@ -44,10 +44,10 @@ type CommandArgs struct {
 	ApiOutputType string
 
 	// HASSIO MQTT
-	MqttUsername   string
-	MqttPassword   string
-	MqttHost       string
-	MqttPort       string
+	MqttUsername string
+	MqttPassword string
+	MqttHost     string
+	MqttPort     string
 
 	// Google sheets
 	GoogleSheet       string
@@ -69,7 +69,6 @@ type CommandArgs struct {
 }
 
 var Cmd CommandArgs
-
 
 func (ca *CommandArgs) IsValid() error {
 	for range Only.Once {
@@ -97,14 +96,14 @@ func (ca *CommandArgs) ProcessArgs(_ *cobra.Command, args []string) error {
 		}
 
 		switch ca.ApiOutputType {
-			case "json":
-				ca.SunGrow.OutputType.SetJson()
-			case "raw":
-				ca.SunGrow.OutputType.SetRaw()
-			case "file":
-				ca.SunGrow.OutputType.SetFile()
-			default:
-				ca.SunGrow.OutputType.SetJson()
+		case "json":
+			ca.SunGrow.OutputType.SetJson()
+		case "raw":
+			ca.SunGrow.OutputType.SetRaw()
+		case "file":
+			ca.SunGrow.OutputType.SetFile()
+		default:
+			ca.SunGrow.OutputType.SetJson()
 		}
 
 		if ca.ApiAppKey == "" {

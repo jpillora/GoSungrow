@@ -1,14 +1,14 @@
 package output
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"encoding/json"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 type Json string
-
 
 func (req Json) String() string {
 	return string(req)

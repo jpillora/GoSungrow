@@ -1,10 +1,11 @@
 package api
 
 import (
-	"GoSungrow/Only"
 	"errors"
 	"fmt"
 	"strings"
+
+	"github.com/jpillora/GoSungrow/Only"
 )
 
 type Response struct {
@@ -48,12 +49,12 @@ func (req ResponseCommon) IsTokenValid() bool {
 	var ok bool
 	for range Only.Once {
 		switch {
-			case req.ResultMsg == "success":
-				ok = true
-			case req.ResultMsg == "er_token_login_invalid":
-				ok = false
-			default:
-				ok = false
+		case req.ResultMsg == "success":
+			ok = true
+		case req.ResultMsg == "er_token_login_invalid":
+			ok = false
+		default:
+			ok = false
 		}
 	}
 	return ok

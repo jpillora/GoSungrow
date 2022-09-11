@@ -1,19 +1,19 @@
 package mmHa
 
 import (
-	"GoSungrow/Only"
 	"encoding/json"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+)
 
 func (m *Mqtt) PublishLightConfig(id string, name string, subName string, units string, valueName string, class string) error {
 	for range Only.Once {
 		id = JoinStringsForId(m.EntityPrefix, m.Device.Name, id)
 
-		payload := Light {
-			Device:                 m.Device,
-			Name:                   JoinStrings(m.Device.ViaDevice, name),
-			StateTopic:             JoinStringsForTopic(m.switchPrefix, id, "state"),
+		payload := Light{
+			Device:     m.Device,
+			Name:       JoinStrings(m.Device.ViaDevice, name),
+			StateTopic: JoinStringsForTopic(m.switchPrefix, id, "state"),
 			// StateClass:             "measurement",
 			// UniqueId:               id,
 			// UnitOfMeasurement:      units,
@@ -56,7 +56,6 @@ func (m *Mqtt) PublishLightState(topic string, payload interface{}) error {
 	}
 	return m.err
 }
-
 
 type Light struct {
 	AvailabilityTopic        string   `json:"availability_topic,omitempty"`
@@ -130,11 +129,11 @@ type Light struct {
 	//
 	// messageHandler mqtt.MessageHandler
 }
+
 func (c *Light) Json() string {
 	j, _ := json.Marshal(*c)
 	return string(j)
 }
-
 
 // {
 //	"brightness": true,

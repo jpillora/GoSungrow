@@ -1,9 +1,10 @@
 package stationDeviceHistoryDataList
 
 import (
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/v1/powerStationService/stationDeviceHistoryDataList"
@@ -21,7 +22,6 @@ func (rd RequestData) Help() string {
 	ret := fmt.Sprintf("")
 	return ret
 }
-
 
 type ResultData struct {
 	Dummy string `json:"dummy"`

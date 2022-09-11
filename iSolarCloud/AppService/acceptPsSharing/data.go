@@ -1,9 +1,10 @@
 package acceptPsSharing
 
 import (
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/v1/powerStationService/acceptPsSharing"

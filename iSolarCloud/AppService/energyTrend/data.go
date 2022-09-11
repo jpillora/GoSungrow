@@ -1,8 +1,9 @@
 package energyTrend
 
 import (
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/v1/powerStationService/energyTrend"
@@ -64,4 +65,3 @@ func (e *ResultData) IsValid() error {
 //
 //	return err
 //}
-

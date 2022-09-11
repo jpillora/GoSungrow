@@ -1,28 +1,28 @@
 package iSolarCloud
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/AliSmsService"
-	"GoSungrow/iSolarCloud/AppService"
-	"GoSungrow/iSolarCloud/AppService/login"
-	"GoSungrow/iSolarCloud/MttvScreenService"
-	"GoSungrow/iSolarCloud/PowerPointService"
-	"GoSungrow/iSolarCloud/WebAppService"
-	"GoSungrow/iSolarCloud/WebIscmAppService"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/output"
 	"errors"
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AliSmsService"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/login"
+	"github.com/jpillora/GoSungrow/iSolarCloud/MttvScreenService"
+	"github.com/jpillora/GoSungrow/iSolarCloud/PowerPointService"
+	"github.com/jpillora/GoSungrow/iSolarCloud/WebAppService"
+	"github.com/jpillora/GoSungrow/iSolarCloud/WebIscmAppService"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
-
 type SunGrow struct {
-	ApiRoot api.Web
-	Auth    login.EndPoint
-	Areas   api.Areas
-	Error   error
+	ApiRoot   api.Web
+	Auth      login.EndPoint
+	Areas     api.Areas
+	Error     error
 	NeedLogin bool
 
 	OutputType output.OutputType
@@ -126,18 +126,18 @@ func (sg *SunGrow) GetByJson(endpoint string, request string) api.EndPoint {
 		}
 
 		switch {
-			case sg.OutputType.IsNone():
+		case sg.OutputType.IsNone():
 
-			case sg.OutputType.IsFile():
-				sg.Error = ret.WriteDataFile()
+		case sg.OutputType.IsFile():
+			sg.Error = ret.WriteDataFile()
 
-			case sg.OutputType.IsRaw():
-				fmt.Println(ret.GetJsonData(true))
+		case sg.OutputType.IsRaw():
+			fmt.Println(ret.GetJsonData(true))
 
-			case sg.OutputType.IsJson():
-				fmt.Println(ret.GetJsonData(false))
+		case sg.OutputType.IsJson():
+			fmt.Println(ret.GetJsonData(false))
 
-			default:
+		default:
 		}
 	}
 	return ret
@@ -193,19 +193,19 @@ func (sg *SunGrow) SplitEndPoint(ae string) (string, string) {
 	for range Only.Once {
 		s := strings.Split(ae, ".")
 		switch len(s) {
-			case 0:
-				sg.Error = errors.New("empty endpoint")
+		case 0:
+			sg.Error = errors.New("empty endpoint")
 
-			case 1:
-				area = "AppService"
-				endpoint = s[0]
+		case 1:
+			area = "AppService"
+			endpoint = s[0]
 
-			case 2:
-				area = s[0]
-				endpoint = s[1]
+		case 2:
+			area = s[0]
+			endpoint = s[1]
 
-			default:
-				sg.Error = errors.New("too many delimeters defined, (only one '.' allowed)")
+		default:
+			sg.Error = errors.New("too many delimeters defined, (only one '.' allowed)")
 		}
 	}
 
@@ -231,40 +231,40 @@ func (sg *SunGrow) AreaNotExists(area string) bool {
 func (sg *SunGrow) Output(endpoint api.EndPoint, table *output.Table, graphFilter string) error {
 	for range Only.Once {
 		switch {
-			case sg.OutputType.IsNone():
+		case sg.OutputType.IsNone():
 
-			case sg.OutputType.IsHuman():
-				if table == nil {
-					break
-				}
-				table.Print()
+		case sg.OutputType.IsHuman():
+			if table == nil {
+				break
+			}
+			table.Print()
 
-			case sg.OutputType.IsFile():
-				if table == nil {
-					break
-				}
-				sg.Error = table.WriteCsvFile()
+		case sg.OutputType.IsFile():
+			if table == nil {
+				break
+			}
+			sg.Error = table.WriteCsvFile()
 
-			case sg.OutputType.IsRaw():
-				fmt.Println(endpoint.GetJsonData(true))
+		case sg.OutputType.IsRaw():
+			fmt.Println(endpoint.GetJsonData(true))
 
-			case sg.OutputType.IsJson():
-				fmt.Println(endpoint.GetJsonData(false))
+		case sg.OutputType.IsJson():
+			fmt.Println(endpoint.GetJsonData(false))
 
-			case sg.OutputType.IsGraph():
-				if table == nil {
-					break
-				}
-				sg.Error = table.SetGraphFromJson(output.Json(graphFilter))
-				if sg.Error != nil {
-					break
-				}
-				sg.Error = table.CreateGraph()
-				if sg.Error != nil {
-					break
-				}
+		case sg.OutputType.IsGraph():
+			if table == nil {
+				break
+			}
+			sg.Error = table.SetGraphFromJson(output.Json(graphFilter))
+			if sg.Error != nil {
+				break
+			}
+			sg.Error = table.CreateGraph()
+			if sg.Error != nil {
+				break
+			}
 
-			default:
+		default:
 		}
 	}
 
@@ -274,21 +274,21 @@ func (sg *SunGrow) Output(endpoint api.EndPoint, table *output.Table, graphFilte
 func (sg *SunGrow) OutputTable(table *output.Table) error {
 	for range Only.Once {
 		switch {
-			case sg.OutputType.IsNone():
+		case sg.OutputType.IsNone():
 
-			case sg.OutputType.IsHuman():
-				if table == nil {
-					break
-				}
-				table.Print()
+		case sg.OutputType.IsHuman():
+			if table == nil {
+				break
+			}
+			table.Print()
 
-			case sg.OutputType.IsFile():
-				if table == nil {
-					break
-				}
-				sg.Error = table.WriteCsvFile()
+		case sg.OutputType.IsFile():
+			if table == nil {
+				break
+			}
+			sg.Error = table.WriteCsvFile()
 
-			default:
+		default:
 		}
 	}
 

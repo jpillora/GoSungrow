@@ -2,10 +2,11 @@
 package AliSmsService
 
 import (
-	"GoSungrow/iSolarCloud/AliSmsService/msgDownwardStatusReceipt"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/output"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/AliSmsService/msgDownwardStatusReceipt"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 var _ api.Area = (*Area)(nil)

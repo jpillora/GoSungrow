@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/spf13/cobra"
+)
 
 func AttachCmdConfig(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
@@ -22,7 +22,6 @@ func AttachCmdConfig(cmd *cobra.Command) *cobra.Command {
 	}
 	cmd.AddCommand(cmdConfig)
 	cmdConfig.Example = PrintExamples(cmdConfig, "read", "write", "write --git-dir=/some/other/directory")
-
 
 	// ******************************************************************************** //
 	var cmdConfigWrite = &cobra.Command{
@@ -54,7 +53,6 @@ func AttachCmdConfig(cmd *cobra.Command) *cobra.Command {
 
 	return cmdConfig
 }
-
 
 func cmdConfigFunc(cmd *cobra.Command, args []string) {
 	for range Only.Once {

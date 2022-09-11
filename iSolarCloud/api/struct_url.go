@@ -1,19 +1,18 @@
 package api
 
 import (
-	"GoSungrow/Only"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net/url"
+
+	"github.com/jpillora/GoSungrow/Only"
 )
 
-
 type EndPointUrl struct {
-	EndPoint *url.URL	`json:"endpoint"`
-	Error error	`json:"error"`
+	EndPoint *url.URL `json:"endpoint"`
+	Error    error    `json:"error"`
 }
-
 
 func (u EndPointUrl) AppendPath(endpoint string) EndPointUrl {
 	var ret EndPointUrl
@@ -50,9 +49,9 @@ func (u EndPointUrl) String() string {
 
 func (u *EndPointUrl) MarshalJSON() ([]byte, error) {
 	return json.Marshal(&struct {
-		Url    string `json:"url"`
+		Url string `json:"url"`
 	}{
-		Url:    u.String(),
+		Url: u.String(),
 	})
 }
 
@@ -61,13 +60,13 @@ func (u *EndPointUrl) UnmarshalJSON(data []byte) error {
 	var err error
 	for range Only.Once {
 		aux := &struct {
-			EndPoint string	`json:"url"`
+			EndPoint string `json:"url"`
 			// Scheme string `json:"schema"`
 			// Host   string `json:"host"`
 			// Path   string `json:"path"`
 			// Url    string `json:"url"`
 		}{
-			EndPoint:    u.String(),
+			EndPoint: u.String(),
 		}
 		err = json.Unmarshal(data, &aux)
 		if err != nil {
@@ -76,7 +75,6 @@ func (u *EndPointUrl) UnmarshalJSON(data []byte) error {
 	}
 	return err
 }
-
 
 func SetUrl(endpoint string) EndPointUrl {
 	var ret EndPointUrl

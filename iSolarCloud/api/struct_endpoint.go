@@ -1,18 +1,19 @@
 package api
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/output"
 	"encoding/json"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 type EndPointName string
 
 type EndPointStruct struct {
-	ApiRoot        Web `json:"-"`
-	RawResponse    []byte
+	ApiRoot     Web `json:"-"`
+	RawResponse []byte
 
 	Area           AreaName     `json:"area"`
 	Name           EndPointName `json:"name"`

@@ -1,13 +1,14 @@
 package queryMutiPointDataList
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"encoding/json"
 	"fmt"
 	"sort"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 const Url = "/v1/commonService/queryMutiPointDataList"
@@ -210,7 +211,7 @@ func (e *EndPoint) GetDataTable(points api.TemplatePoints) output.Table {
 			}
 		}
 
-		table.InitGraph(output.GraphRequest {
+		table.InitGraph(output.GraphRequest{
 			Title:        "",
 			TimeColumn:   output.SetInteger(1),
 			SearchColumn: output.SetInteger(2),

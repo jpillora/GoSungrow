@@ -1,13 +1,14 @@
 package api
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/output"
 	"errors"
 	"fmt"
-	"github.com/olekukonko/tablewriter"
 	"os"
 	"sort"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
+	"github.com/olekukonko/tablewriter"
 )
 
 type Areas map[AreaName]AreaStruct // TypeEndPoints		// Map of EndPoints by area name.

@@ -1,8 +1,9 @@
 package api
 
 import (
-	"GoSungrow/iSolarCloud/api/output"
 	"time"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 type EndPoint interface {

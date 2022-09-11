@@ -1,10 +1,10 @@
 package mmHa
 
 import (
-	"GoSungrow/Only"
 	"encoding/json"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+)
 
 func (m *Mqtt) SwitchPublishConfig(config EntityConfig) error {
 
@@ -17,27 +17,27 @@ func (m *Mqtt) SwitchPublishConfig(config EntityConfig) error {
 		device := m.Device
 		device.Name = JoinStrings(m.Device.Name, config.ParentId)
 		device.Connections = [][]string{
-			{ m.Device.Name, JoinStringsForId(m.Device.Name, config.ParentId) },
-			{ JoinStringsForId(m.Device.Name, config.ParentId), JoinStringsForId(m.Device.Name, config.ParentId, config.Name) },
+			{m.Device.Name, JoinStringsForId(m.Device.Name, config.ParentId)},
+			{JoinStringsForId(m.Device.Name, config.ParentId), JoinStringsForId(m.Device.Name, config.ParentId, config.Name)},
 		}
-		device.Identifiers = []string{ JoinStringsForId(m.Device.Name, config.ParentId) }
+		device.Identifiers = []string{JoinStringsForId(m.Device.Name, config.ParentId)}
 		st := JoinStringsForId(m.Device.Name, config.ParentId, config.Name)
 
-		payload := Switch {
-			Device:                 device,
-			Name:                   JoinStrings(m.Device.Name, config.ParentName, config.FullId),
-			StateTopic:             JoinStringsForTopic(m.binarySensorPrefix, st, "state"),
-			CommandTopic:           JoinStringsForTopic(m.binarySensorPrefix, st, "cmd"),
-			UniqueId:               st,
-			Qos:                    0,
-			Retain:                 true,
+		payload := Switch{
+			Device:       device,
+			Name:         JoinStrings(m.Device.Name, config.ParentName, config.FullId),
+			StateTopic:   JoinStringsForTopic(m.binarySensorPrefix, st, "state"),
+			CommandTopic: JoinStringsForTopic(m.binarySensorPrefix, st, "cmd"),
+			UniqueId:     st,
+			Qos:          0,
+			Retain:       true,
 
-			PayloadOn:              "true",
-			PayloadOff:             "false",
-			StateOn:                "true",
-			StateOff:               "false",
-			ValueTemplate:          config.ValueTemplate,
-			Icon:                   config.Icon,
+			PayloadOn:     "true",
+			PayloadOff:    "false",
+			StateOn:       "true",
+			StateOff:      "false",
+			ValueTemplate: config.ValueTemplate,
+			Icon:          config.Icon,
 
 			// Availability:           &Availability {
 			// 	PayloadAvailable:    "",
@@ -74,7 +74,7 @@ func (m *Mqtt) SwitchPublishValue(config EntityConfig) error {
 		}
 
 		st := JoinStringsForId(m.Device.Name, config.ParentId, config.Name)
-		payload := MqttState {
+		payload := MqttState{
 			LastReset: m.GetLastReset(config.UniqueId),
 			Value:     config.Value,
 		}
@@ -87,7 +87,6 @@ func (m *Mqtt) SwitchPublishValue(config EntityConfig) error {
 
 	return m.err
 }
-
 
 // func (m *Mqtt) PublishSwitchConfig(id string, name string, subName string, units string, valueName string, class string) error {
 // 	for range Only.Once {
@@ -139,7 +138,6 @@ func (m *Mqtt) SwitchPublishValue(config EntityConfig) error {
 // 	}
 // 	return m.err
 // }
-
 
 type Switch struct {
 	AvailabilityTopic      string `json:"avty_t,omitempty"`

@@ -1,14 +1,15 @@
 package google
 
 import (
-	"GoSungrow/Only"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"golang.org/x/oauth2"
 	"net/http"
 	"os"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"golang.org/x/oauth2"
 )
 
 // Retrieve a token, saves the token, then returns the generated client.

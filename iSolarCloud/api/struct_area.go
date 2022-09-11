@@ -1,9 +1,10 @@
 package api
 
 import (
-	"GoSungrow/Only"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
 )
 
 type AreaStruct struct {

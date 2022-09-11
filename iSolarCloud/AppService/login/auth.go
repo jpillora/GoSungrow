@@ -1,12 +1,13 @@
 package login
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/output"
 	"errors"
 	"fmt"
 	"time"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 const (
@@ -22,12 +23,12 @@ type SunGrowAuth struct {
 	UserPassword string
 	TokenFile    string
 	// Token        string
-	Force        bool
+	Force bool
 
-	lastLogin    time.Time
-	newToken     bool
+	lastLogin time.Time
+	newToken  bool
 	// retry        int
-	err          error
+	err error
 }
 
 func (a *SunGrowAuth) Verify() error {
@@ -61,11 +62,11 @@ func (a *SunGrowAuth) Verify() error {
 func (e *EndPoint) Login(auth *SunGrowAuth) error {
 	for range Only.Once {
 		e.Auth = auth
-		e.Request.RequestData = RequestData {
+		e.Request.RequestData = RequestData{
 			UserAccount:  auth.UserAccount,
 			UserPassword: auth.UserPassword,
 		}
-		e.Request.RequestCommon = api.RequestCommon {
+		e.Request.RequestCommon = api.RequestCommon{
 			Appkey:  auth.AppKey,
 			SysCode: "900",
 		}

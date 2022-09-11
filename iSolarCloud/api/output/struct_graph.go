@@ -1,37 +1,37 @@
 package output
 
 import (
-	"GoSungrow/Only"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/wcharczuk/go-chart/v2"
-	"github.com/wcharczuk/go-chart/v2/drawing"
-	"go.pennock.tech/tabular"
 	"os"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/wcharczuk/go-chart/v2"
+	"github.com/wcharczuk/go-chart/v2/drawing"
+	"go.pennock.tech/tabular"
 )
 
-
 type GraphRequest struct {
-	Title        string  `json:"title"`
+	Title string `json:"title"`
 
-	TimeColumn   *int     `json:"time_column"`
-	ValueColumn  *int     `json:"value_column"`
-	UnitsColumn  *int     `json:"units_column"`
-	NameColumn   *int     `json:"name_column"`
-	SearchColumn *int     `json:"search_column"`
-	SearchString *string  `json:"search_string"`
+	TimeColumn   *int    `json:"time_column"`
+	ValueColumn  *int    `json:"value_column"`
+	UnitsColumn  *int    `json:"units_column"`
+	NameColumn   *int    `json:"name_column"`
+	SearchColumn *int    `json:"search_column"`
+	SearchString *string `json:"search_string"`
 
-	MinLeftAxis  *float64 `json:"min_left_axis"`
-	MaxLeftAxis  *float64 `json:"max_left_axis"`
+	MinLeftAxis *float64 `json:"min_left_axis"`
+	MaxLeftAxis *float64 `json:"max_left_axis"`
 
-	Width        *int     `json:"width"`
-	Height       *int     `json:"height"`
+	Width  *int `json:"width"`
+	Height *int `json:"height"`
 
-	Error        error   `json:"-"`
+	Error error `json:"-"`
 }
 
 func SetInteger(v int) *int {
@@ -43,7 +43,6 @@ func SetString(v string) *string {
 func SetFloat(v float64) *float64 {
 	return &v
 }
-
 
 func JsonToGraphRequest(j Json) GraphRequest {
 	var ret GraphRequest
@@ -123,7 +122,6 @@ func (t *Table) SetGraphFromJson(j Json) error {
 	return t.Error
 }
 
-
 func (t *Table) GetSearchColumn() SearchStrings {
 	return t.graph.otherSearch
 }
@@ -178,7 +176,7 @@ func (t *Table) ProcessGraphData() error {
 				continue
 			}
 			var tim time.Time
-			tim, t.Error = time.ParseInLocation(DateTimeSearchLayout, cell.String(), time.Local)	// @TODO - May have to revisit this!
+			tim, t.Error = time.ParseInLocation(DateTimeSearchLayout, cell.String(), time.Local) // @TODO - May have to revisit this!
 			if t.Error != nil {
 				continue
 			}
@@ -217,6 +215,7 @@ func (t *Table) ProcessGraphData() error {
 }
 
 type SearchStrings map[string]int
+
 func (t *Table) FindSearchStrings() error {
 	for range Only.Once {
 		t.graph.otherSearch = make(SearchStrings)
@@ -275,19 +274,17 @@ func (t *Table) CreateGraph() error {
 // 	return t.graph.Generate()
 // }
 
-
 type Chart struct {
 	Error error `json:"-"`
 
-	searchName string
+	searchName  string
 	otherSearch SearchStrings
-	req GraphRequest
-	filename string
+	req         GraphRequest
+	filename    string
 	timeSeries1 chart.TimeSeries
 	timeSeries2 chart.TimeSeries
-	graph chart.Chart
+	graph       chart.Chart
 }
-
 
 // func Randy(min int, max int) float64 {
 // 	r := rand.Intn(max - min) + min
@@ -324,12 +321,11 @@ type Chart struct {
 // 	fmt.Println(err)
 // }
 
-
 func New(title string) *Chart {
 	var c Chart
 
 	for range Only.Once {
-		c.timeSeries1 = chart.TimeSeries {
+		c.timeSeries1 = chart.TimeSeries{
 			Name:    "",
 			Style:   chart.Style{},
 			YAxis:   chart.YAxisPrimary,
@@ -344,7 +340,7 @@ func New(title string) *Chart {
 			YValues: []float64{},
 		}
 
-		c.graph = chart.Chart {
+		c.graph = chart.Chart{
 			Title:          title,
 			TitleStyle:     chart.Style{},
 			ColorPalette:   nil,
@@ -357,7 +353,7 @@ func New(title string) *Chart {
 			YAxis:          chart.YAxis{},
 			YAxisSecondary: chart.YAxis{},
 			Font:           nil,
-			Series:         []chart.Series{c.timeSeries1},	// , c.timeSeries2},
+			Series:         []chart.Series{c.timeSeries1}, // , c.timeSeries2},
 			Elements:       nil,
 			Log:            nil,
 		}
@@ -365,7 +361,6 @@ func New(title string) *Chart {
 	}
 	return &c
 }
-
 
 func (c *Chart) SetWidth(v *int) {
 	for range Only.Once {
@@ -426,7 +421,7 @@ func (c *Chart) SetRangeY(min *float64, max *float64) bool {
 			max = c.req.MaxLeftAxis
 		}
 
-		c.graph.YAxis.Range = &chart.ContinuousRange {
+		c.graph.YAxis.Range = &chart.ContinuousRange{
 			Min:        *min,
 			Max:        *max,
 			Domain:     0,
@@ -479,12 +474,12 @@ func (c *Chart) SetX(name string, values ...time.Time) error {
 			break
 		}
 
-		c.graph.XAxis = chart.XAxis {
+		c.graph.XAxis = chart.XAxis{
 			Name:           name,
 			NameStyle:      chart.Style{},
 			Style:          chart.Style{},
 			ValueFormatter: chart.TimeValueFormatterWithFormat(DateTimeLayout),
-			Range:          &chart.ContinuousRange {
+			Range: &chart.ContinuousRange{
 				Min:        0,
 				Max:        0,
 				Domain:     0,
@@ -620,12 +615,12 @@ func (c *Chart) Generate() error {
 			break
 		}
 
-		c.timeSeries1.Style = chart.Style {
+		c.timeSeries1.Style = chart.Style{
 			StrokeColor: drawing.ColorBlue,
 			FillColor:   drawing.ColorBlue.WithAlpha(64),
 		}
 
-		c.graph.Series = []chart.Series {
+		c.graph.Series = []chart.Series{
 			c.timeSeries1,
 			// c.timeSeries2,
 		}
@@ -655,7 +650,6 @@ func (c *Chart) Generate() error {
 	return c.Error
 }
 
-
 // TimeValueFormatterWithFormat is a ValueFormatter for timestamps with a given format.
 func formatTime(v interface{}, dateFormat string) string {
 	if typed, isTyped := v.(time.Time); isTyped {
@@ -669,7 +663,6 @@ func formatTime(v interface{}, dateFormat string) string {
 	}
 	return ""
 }
-
 
 // var lock sync.Mutex
 // var graph *chart.Chart

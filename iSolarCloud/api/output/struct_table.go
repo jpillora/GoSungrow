@@ -1,14 +1,14 @@
 package output
 
 import (
-	"GoSungrow/Only"
 	"errors"
 	"fmt"
+	"os"
+
+	"github.com/jpillora/GoSungrow/Only"
 	"go.pennock.tech/tabular"
 	datatable "go.pennock.tech/tabular/auto"
-	"os"
 )
-
 
 type Table struct {
 	filePrefix string
@@ -18,12 +18,11 @@ type Table struct {
 	Error      error
 }
 
-
 func NewTable() Table {
-	return Table {
+	return Table{
 		filePrefix: "",
-		title: "",
-		table: datatable.New("utf8-heavy"),
+		title:      "",
+		table:      datatable.New("utf8-heavy"),
 		// graph: graph.New(""),
 		Error: nil,
 	}
@@ -50,7 +49,8 @@ func (t *Table) AllRows() []*tabular.Row {
 
 type DataSet []DataRow
 type DataRow map[string]string
-func (t *Table) GetData()  {
+
+func (t *Table) GetData() {
 	headers := t.GetHeaders()
 	for _, r := range t.AllRows() {
 		for i, c := range r.Cells() {
@@ -93,7 +93,7 @@ func (t *Table) SetFilePrefix(prefix string) error {
 	return t.Error
 }
 
-func (t *Table) SetHeader(header...interface{}) error {
+func (t *Table) SetHeader(header ...interface{}) error {
 	t.table.AddHeaders(header...)
 	t.Error = t.getErrors()
 	return t.Error
@@ -142,5 +142,5 @@ func (t *Table) WriteFile(fn string, perm os.FileMode) error {
 }
 
 func (t *Table) WriteCsvFile() error {
-	return t.writeFile(t.filePrefix + ".csv", DefaultFileMode)
+	return t.writeFile(t.filePrefix+".csv", DefaultFileMode)
 }

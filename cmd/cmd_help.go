@@ -1,15 +1,15 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
+	"os"
+	"strings"
+
+	"github.com/jpillora/GoSungrow/Only"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"os"
-	"strings"
 )
-
 
 func AttachCmdHelpFlags(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
@@ -30,7 +30,6 @@ func AttachCmdHelpFlags(cmd *cobra.Command) *cobra.Command {
 	return cmdHelpFlags
 }
 
-
 func cmdHelpFlagsFunc(cmd *cobra.Command, args []string) {
 	for range Only.Once {
 		if len(args) > 0 {
@@ -46,7 +45,6 @@ func cmdHelpFlagsFunc(cmd *cobra.Command, args []string) {
 		PrintFlags(rootCmd)
 	}
 }
-
 
 func PrintExamples(cmd *cobra.Command, examples ...string) string {
 	var ret string

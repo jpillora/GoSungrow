@@ -1,27 +1,27 @@
 package iSolarCloud
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/AppService/getPowerDevicePointInfo"
-	"GoSungrow/iSolarCloud/AppService/getPowerDevicePointNames"
-	"GoSungrow/iSolarCloud/AppService/getPsDetailWithPsType"
-	"GoSungrow/iSolarCloud/AppService/getPsList"
-	"GoSungrow/iSolarCloud/AppService/getTemplateList"
-	"GoSungrow/iSolarCloud/AppService/queryDeviceList"
-	"GoSungrow/iSolarCloud/AppService/queryDeviceRealTimeDataByPsKeys"
-	"GoSungrow/iSolarCloud/AppService/queryMutiPointDataList"
-	"GoSungrow/iSolarCloud/WebAppService/getMqttConfigInfoByAppkey"
-	"GoSungrow/iSolarCloud/WebAppService/queryUserCurveTemplateData"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/output"
 	"errors"
 	"fmt"
 	"math"
 	"strconv"
 	"strings"
 	"time"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/getPowerDevicePointInfo"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/getPowerDevicePointNames"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/getPsDetailWithPsType"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/getPsList"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/getTemplateList"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/queryDeviceList"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/queryDeviceRealTimeDataByPsKeys"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/queryMutiPointDataList"
+	"github.com/jpillora/GoSungrow/iSolarCloud/WebAppService/getMqttConfigInfoByAppkey"
+	"github.com/jpillora/GoSungrow/iSolarCloud/WebAppService/queryUserCurveTemplateData"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
+)
 
 func (sg *SunGrow) GetPointNamesFromTemplate(template string) api.TemplatePoints {
 	var ret api.TemplatePoints
@@ -44,7 +44,7 @@ func (sg *SunGrow) GetPointNamesFromTemplate(template string) api.TemplatePoints
 		data := queryUserCurveTemplateData.AssertResultData(ep)
 		for dn, dr := range data.PointsData.Devices {
 			for _, pr := range dr.Points {
-					ret = append(ret, api.TemplatePoint {
+				ret = append(ret, api.TemplatePoint{
 					PsKey:       dn,
 					PointId:     "p" + pr.PointID,
 					Description: pr.PointName,
@@ -81,7 +81,7 @@ func (sg *SunGrow) GetTemplateData(template string, date string, filter string) 
 
 		ep := sg.GetByStruct(
 			"AppService.queryMutiPointDataList",
-			queryMutiPointDataList.RequestData {
+			queryMutiPointDataList.RequestData{
 				PsID:           psId,
 				PsKey:          pointNames.PrintKeys(),
 				Points:         pointNames.PrintPoints(),
@@ -129,7 +129,7 @@ func (sg *SunGrow) GetTemplatePoints(template string) error {
 			"PointStruct Id",
 			"Description",
 			"Unit",
-			)
+		)
 		if sg.Error != nil {
 			break
 		}
@@ -265,7 +265,7 @@ func (sg *SunGrow) PrintCurrentStats() error {
 		ep = sg.GetByStruct(
 			"AppService.queryDeviceList",
 			queryDeviceList.RequestData{PsId: strconv.FormatInt(psId, 10)},
-			time.Second * 60,
+			time.Second*60,
 		)
 		if sg.Error != nil {
 			break
@@ -301,7 +301,7 @@ func (sg *SunGrow) QueryDevice(psId int64) queryDeviceList.EndPoint {
 		ep := sg.GetByStruct(
 			"AppService.queryDeviceList",
 			queryDeviceList.RequestData{PsId: strconv.FormatInt(psId, 10)},
-			time.Second * 60,
+			time.Second*60,
 		)
 		// if sg.Error != nil {
 		// 	break
@@ -327,7 +327,7 @@ func (sg *SunGrow) QueryPs(psId int64) getPsList.EndPoint {
 		ep := sg.GetByStruct(
 			"AppService.getPsList",
 			getPsList.RequestData{},
-			time.Second * 60,
+			time.Second*60,
 		)
 		// if sg.Error != nil {
 		// 	break
@@ -523,7 +523,7 @@ func (sg *SunGrow) GetPointData(date string, pointNames api.TemplatePoints) erro
 
 		ep := sg.GetByStruct(
 			"AppService.queryMutiPointDataList",
-			queryMutiPointDataList.RequestData {
+			queryMutiPointDataList.RequestData{
 				PsID:           psId,
 				PsKey:          pointNames.PrintKeys(),
 				Points:         pointNames.PrintPoints(),
@@ -672,7 +672,6 @@ func (sg *SunGrow) GetPointName(pn string) error {
 
 	return sg.Error
 }
-
 
 func (sg *SunGrow) GetPsId() (int64, error) {
 	var ret int64

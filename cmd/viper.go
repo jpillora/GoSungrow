@@ -1,18 +1,17 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
+	"os"
+	"strings"
+
+	"github.com/jpillora/GoSungrow/Only"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"os"
-	"strings"
 )
 
-
 var rootViper *viper.Viper
-
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig(cmd *cobra.Command) error {

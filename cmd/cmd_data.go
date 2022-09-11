@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
 	"github.com/spf13/cobra"
 )
-
 
 func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 	var cmdData = &cobra.Command{
@@ -16,14 +16,13 @@ func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.ProcessArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
-		Args:                  cobra.MinimumNArgs(1),
+		Args: cobra.MinimumNArgs(1),
 	}
 	cmd.AddCommand(cmdData)
 	cmdData.Example = PrintExamples(cmdData, "get <endpoint>", "put <endpoint>")
-
 
 	// ********************************************************************************
 	var cmdDataLogin = &cobra.Command{
@@ -40,7 +39,6 @@ func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 	cmdData.AddCommand(cmdDataLogin)
 	cmdDataLogin.Example = PrintExamples(cmdDataLogin, "")
 
-
 	// ********************************************************************************
 	var cmdDataGet = &cobra.Command{
 		Use:                   "get",
@@ -50,10 +48,10 @@ func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
-		Args:                  cobra.MinimumNArgs(1),
+		Args: cobra.MinimumNArgs(1),
 	}
 	cmdData.AddCommand(cmdDataGet)
 	cmdDataGet.Example = PrintExamples(cmdDataGet, "[area.]<endpoint>")
@@ -77,10 +75,10 @@ func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
-		Args:                  cobra.MinimumNArgs(1),
+		Args: cobra.MinimumNArgs(1),
 	}
 	cmdData.AddCommand(cmdDataRaw)
 	cmdDataRaw.Example = PrintExamples(cmdDataRaw, "[area.]<endpoint>")
@@ -101,10 +99,10 @@ func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
-		Args:                  cobra.MinimumNArgs(1),
+		Args: cobra.MinimumNArgs(1),
 	}
 	cmdData.AddCommand(cmdDataSave)
 	cmdDataSave.Example = PrintExamples(cmdDataSave, "[area.]<endpoint>")
@@ -127,10 +125,10 @@ func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
-		Args:                  cobra.MinimumNArgs(1),
+		Args: cobra.MinimumNArgs(1),
 	}
 	cmdData.AddCommand(cmdDataGraph)
 	cmdDataGraph.Example = PrintExamples(cmdDataGraph, "[area.]<endpoint> ''")
@@ -157,7 +155,6 @@ func AttachCmdData(cmd *cobra.Command) *cobra.Command {
 	return cmdData
 }
 
-
 func cmdDataPutFunc(_ *cobra.Command, args []string) {
 	for range Only.Once {
 		fmt.Println("Not yet implemented.")
@@ -167,22 +164,21 @@ func cmdDataPutFunc(_ *cobra.Command, args []string) {
 	}
 }
 
-
 func SwitchOutput(cmd *cobra.Command) error {
 	var err error
 	for range Only.Once {
 		foo := cmd.Parent()
 		switch foo.Use {
-			case "get":
-				Cmd.SunGrow.OutputType.SetHuman()
-			case "raw":
-				Cmd.SunGrow.OutputType.SetRaw()
-			case "save":
-				Cmd.SunGrow.OutputType.SetFile()
-			case "graph":
-				Cmd.SunGrow.OutputType.SetGraph()
-			default:
-				Cmd.SunGrow.OutputType.SetHuman()
+		case "get":
+			Cmd.SunGrow.OutputType.SetHuman()
+		case "raw":
+			Cmd.SunGrow.OutputType.SetRaw()
+		case "save":
+			Cmd.SunGrow.OutputType.SetFile()
+		case "graph":
+			Cmd.SunGrow.OutputType.SetGraph()
+		default:
+			Cmd.SunGrow.OutputType.SetHuman()
 		}
 	}
 

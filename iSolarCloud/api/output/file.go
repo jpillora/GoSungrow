@@ -1,14 +1,14 @@
 package output
 
 import (
-	"GoSungrow/Only"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+)
 
 // FileRead Retrieves data from a local file.
 func FileRead(fn string, ref interface{}) error {

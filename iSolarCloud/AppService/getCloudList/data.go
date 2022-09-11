@@ -1,8 +1,9 @@
 package getCloudList
 
 import (
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/v1/commonService/getCloudList"

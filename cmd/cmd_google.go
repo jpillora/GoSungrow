@@ -1,16 +1,16 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
 	"github.com/spf13/cobra"
 )
-
 
 func AttachCmdGoogle(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
 	var cmdGoogle = &cobra.Command{
-		Use: "google",
+		Use:                   "google",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Update and view Google sheets."),
 		Long:                  fmt.Sprintf("Update and view Google sheets."),
@@ -23,10 +23,9 @@ func AttachCmdGoogle(cmd *cobra.Command) *cobra.Command {
 	cmd.AddCommand(cmdGoogle)
 	cmdGoogle.Example = PrintExamples(cmdGoogle, "update all", "update devices")
 
-
 	// ******************************************************************************** //
 	var cmdGoogleSync = &cobra.Command{
-		Use: "update",
+		Use:                   "update",
 		Aliases:               []string{""},
 		Short:                 fmt.Sprintf("Update Google sheets."),
 		Long:                  fmt.Sprintf("Update Google sheets."),
@@ -41,7 +40,6 @@ func AttachCmdGoogle(cmd *cobra.Command) *cobra.Command {
 
 	return cmdGoogle
 }
-
 
 func cmdGoogleFunc(_ *cobra.Command, _ []string) {
 	for range Only.Once {

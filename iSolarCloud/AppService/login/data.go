@@ -1,10 +1,11 @@
 package login
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/v1/userService/login"
@@ -187,4 +188,3 @@ func (e *EndPoint) UserID() string {
 func (e *EndPoint) UserName() string {
 	return e.Response.ResultData.UserName
 }
-

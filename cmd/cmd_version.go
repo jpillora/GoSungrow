@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/defaults"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/defaults"
 	"github.com/spf13/cobra"
 )
-
 
 func AttachCmdVersion(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
@@ -26,8 +26,8 @@ func AttachCmdVersion(cmd *cobra.Command) *cobra.Command {
 	return cmdVersion
 }
 
-
 // ******************************************************************************** //
+//
 //goland:noinspection GoUnusedParameter
 func cmdVersionFunc(cmd *cobra.Command, args []string) {
 	for range Only.Once {

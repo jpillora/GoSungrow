@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"GoSungrow/iSolarCloud/api"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
 	"github.com/spf13/cobra"
 )
-
 
 func AttachCmdDataTemplatePoints(cmd *cobra.Command) *cobra.Command {
 	// ********************************************************************************
@@ -17,11 +17,11 @@ func AttachCmdDataTemplatePoints(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			return Cmd.SunGrow.GetTemplatePoints(args[0])
 		},
-		Args:                  cobra.ExactArgs(1),
+		Args: cobra.ExactArgs(1),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "8042", "8040")
@@ -38,12 +38,12 @@ func AttachCmdDataTemplate(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			args = fillArray(3, args)
 			return Cmd.SunGrow.GetTemplateData(args[0], args[1], args[2])
 		},
-		Args:                  cobra.RangeArgs(2, 3),
+		Args: cobra.RangeArgs(2, 3),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "8042 20220212", "8042 20220212 '{\"search_string\":\"p83106\",\"min_left_axis\":-6000,\"max_left_axis\":12000}'")
@@ -61,11 +61,11 @@ func AttachCmdDataStats(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			return Cmd.SunGrow.PrintCurrentStats()
 		},
-		Args:                  cobra.ExactArgs(0),
+		Args: cobra.ExactArgs(0),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "")
@@ -83,11 +83,11 @@ func AttachCmdDataPoints(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			return Cmd.SunGrow.GetPointData(args[0], api.CreatePoints(args[1:]))
 		},
-		Args:                  cobra.MinimumNArgs(2),
+		Args: cobra.MinimumNArgs(2),
 	}
 	cmd.AddCommand(cmdDataPoints)
 	cmdDataPoints.Example = PrintExamples(cmdDataPoints, "20220202 1129147.p13019 1129147.p83106")
@@ -105,11 +105,11 @@ func AttachCmdDataTemplates(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			return Cmd.SunGrow.GetTemplates()
 		},
-		Args:                  cobra.ExactArgs(0),
+		Args: cobra.ExactArgs(0),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "")
@@ -127,12 +127,12 @@ func AttachCmdDataMqtt(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			args = fillArray(1, args)
 			return Cmd.SunGrow.GetIsolarcloudMqtt(args[0])
 		},
-		Args:                  cobra.RangeArgs(0, 1),
+		Args: cobra.RangeArgs(0, 1),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "")
@@ -150,12 +150,12 @@ func AttachCmdDataRealTime(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			args = fillArray(1, args)
 			return Cmd.SunGrow.GetRealTimeData(args[0])
 		},
-		Args:                  cobra.RangeArgs(0, 1),
+		Args: cobra.RangeArgs(0, 1),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "")
@@ -173,12 +173,12 @@ func AttachCmdDataPsDetails(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			args = fillArray(1, args)
 			return Cmd.SunGrow.GetPsDetails(args[0])
 		},
-		Args:                  cobra.RangeArgs(0, 1),
+		Args: cobra.RangeArgs(0, 1),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "")
@@ -196,11 +196,11 @@ func AttachCmdDataPointNames(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			return Cmd.SunGrow.GetPointNames(args...)
 		},
-		Args:                  cobra.MinimumNArgs(0),
+		Args: cobra.MinimumNArgs(0),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "")
@@ -219,11 +219,11 @@ func AttachCmdDataSearchPointInfo(cmd *cobra.Command) *cobra.Command {
 		DisableFlagParsing:    false,
 		DisableFlagsInUseLine: false,
 		PreRunE:               Cmd.SunGrowArgs,
-		RunE:                  func(cmd *cobra.Command, args []string) error {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			_ = SwitchOutput(cmd)
 			return Cmd.SunGrow.SearchPointNames(args...)
 		},
-		Args:                  cobra.MinimumNArgs(0),
+		Args: cobra.MinimumNArgs(0),
 	}
 	cmd.AddCommand(c)
 	c.Example = PrintExamples(c, "")

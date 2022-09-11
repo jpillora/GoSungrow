@@ -1,27 +1,26 @@
 package api
 
 import (
-	"GoSungrow/Only"
 	"errors"
 	"fmt"
 	"strings"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+)
 
 type Request struct {
 	RequestCommon
 }
 
 type RequestCommon struct {
-	Appkey     string `json:"appkey" required:"true"`
-	Lang       string `json:"lang"`
-	SysCode    string `json:"sys_code" required:"true"`
-	Token      string `json:"token"`
-	UserID     string `json:"user_id"`
-	ValidFlag  string `json:"valid_flag"`
+	Appkey    string `json:"appkey" required:"true"`
+	Lang      string `json:"lang"`
+	SysCode   string `json:"sys_code" required:"true"`
+	Token     string `json:"token"`
+	UserID    string `json:"user_id"`
+	ValidFlag string `json:"valid_flag"`
 	// DeviceType string `json:"device_type"`
 }
-
 
 func (req RequestCommon) IsValid() error {
 	var err error

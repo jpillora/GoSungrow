@@ -1,9 +1,10 @@
 package api
 
 import (
-	"GoSungrow/Only"
 	"fmt"
 	"strings"
+
+	"github.com/jpillora/GoSungrow/Only"
 )
 
 type TemplatePoint struct {
@@ -13,7 +14,6 @@ type TemplatePoint struct {
 	Unit        string
 }
 type TemplatePoints []TemplatePoint
-
 
 func (t *TemplatePoints) PrintKeys() string {
 	var ret string

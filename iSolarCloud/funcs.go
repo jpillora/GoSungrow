@@ -1,9 +1,8 @@
 package iSolarCloud
 
 import (
-	"GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/Only"
 )
-
 
 func fillArray(count int, args []string) []string {
 	var ret []string

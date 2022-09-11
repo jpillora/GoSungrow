@@ -1,10 +1,11 @@
 package getHistoryInfo
 
 import (
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/v1/powerStationService/getHistoryInfo"
@@ -24,7 +25,6 @@ func (rd RequestData) Help() string {
 	ret += api.HelpDataType()
 	return ret
 }
-
 
 type ResultData struct {
 	Dummy string `json:"dummy"`

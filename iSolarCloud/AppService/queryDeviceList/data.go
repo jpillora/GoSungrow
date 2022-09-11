@@ -1,12 +1,13 @@
 package queryDeviceList
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"fmt"
 	"strconv"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 const Url = "/v1/devService/queryDeviceList"
@@ -124,15 +125,15 @@ type ResultData struct {
 			IsDst    string `json:"is_dst"`
 			TimeZone string `json:"time_zone"`
 		} `json:"psTimezoneInfo"`
-		PsID                    int64       `json:"ps_id" PointId:"ps_id" PointType:""`
-		PsKey                   string      `json:"ps_key" PointId:"ps_key" PointType:""`
-		RelState                int64       `json:"rel_state" PointId:"rel_state" PointType:""`
-		Sn                      string      `json:"sn" PointId:"sn" PointType:""`
-		StringAmount            int64       `json:"string_amount" PointId:"string_amount" PointType:""`
-		TypeName                string      `json:"type_name" PointId:"type_name" PointType:""`
-		UnitName                interface{} `json:"unit_name" PointId:"unit_name" PointType:""`
-		UUID                    string      `json:"uuid" PointId:"uuid" PointType:""`
-		UUIDIndexCode           string      `json:"uuid_index_code" PointId:"uuid_index_code" PointType:""`
+		PsID          int64       `json:"ps_id" PointId:"ps_id" PointType:""`
+		PsKey         string      `json:"ps_key" PointId:"ps_key" PointType:""`
+		RelState      int64       `json:"rel_state" PointId:"rel_state" PointType:""`
+		Sn            string      `json:"sn" PointId:"sn" PointType:""`
+		StringAmount  int64       `json:"string_amount" PointId:"string_amount" PointType:""`
+		TypeName      string      `json:"type_name" PointId:"type_name" PointType:""`
+		UnitName      interface{} `json:"unit_name" PointId:"unit_name" PointType:""`
+		UUID          string      `json:"uuid" PointId:"uuid" PointType:""`
+		UUIDIndexCode string      `json:"uuid_index_code" PointId:"uuid_index_code" PointType:""`
 	} `json:"pageList"`
 	RowCount int64 `json:"rowCount"`
 }
@@ -166,7 +167,6 @@ type PointStruct struct {
 // 	api.DataEntry
 // 	ValueFloat float64
 // }
-
 
 func (e *ResultData) IsValid() error {
 	var err error
@@ -263,7 +263,7 @@ func (e *EndPoint) GetDataTable() output.Table {
 			}
 		}
 
-		table.InitGraph(output.GraphRequest {
+		table.InitGraph(output.GraphRequest{
 			Title:        "",
 			TimeColumn:   output.SetInteger(1),
 			SearchColumn: output.SetInteger(2),
@@ -489,74 +489,71 @@ func (e *EndPoint) GetData() api.DataMap {
 		// var value float64
 
 		entries.FromRefAddFloat("pv_self_consumption",
-			api.VirtualPsId,"pv_daily_yield", "",
-			entries.GetFloatValue("pv_self_consumption") + entries.GetFloatValue("pv_battery_charge") + entries.GetFloatValue("pv_feed_in"))
+			api.VirtualPsId, "pv_daily_yield", "",
+			entries.GetFloatValue("pv_self_consumption")+entries.GetFloatValue("pv_battery_charge")+entries.GetFloatValue("pv_feed_in"))
 
 		entries.FromRefAddFloat("daily_pv_energy",
-			api.VirtualPsId,"pv_self_consumption_percent", "",
+			api.VirtualPsId, "pv_self_consumption_percent", "",
 			entries.GetPercent("pv_self_consumption", "daily_pv_energy"))
 		entries.FromRefAddFloat("daily_pv_energy",
-			api.VirtualPsId,"pv_battery_charge_percent", "",
+			api.VirtualPsId, "pv_battery_charge_percent", "",
 			entries.GetPercent("pv_battery_charge", "daily_pv_energy"))
 		entries.FromRefAddFloat("daily_pv_energy",
-			api.VirtualPsId,"pv_feed_in_percent", "",
+			api.VirtualPsId, "pv_feed_in_percent", "",
 			entries.GetPercent("pv_feed_in", "daily_pv_energy"))
 
 		// @TODO - Add this calculation.
 		DailyPvEnergy := entries.GetFloatValue("daily_total_energy") - entries.GetFloatValue("daily_purchased_energy")
 		fmt.Sprintf("%f", DailyPvEnergy)
 		entries.FromRefAddFloat("daily_total_energy",
-			api.VirtualPsId,"daily_pv_energy_percent", "",
+			api.VirtualPsId, "daily_pv_energy_percent", "",
 			api.GetPercent(DailyPvEnergy, entries.GetValue("daily_total_energy")))
 		entries.FromRefAddFloat("daily_total_energy",
-			api.VirtualPsId,"daily_purchased_energy_percent", "",
+			api.VirtualPsId, "daily_purchased_energy_percent", "",
 			entries.GetPercent("daily_purchased_energy", "daily_total_energy"))
 
 		entries.FromRefAddFloat("pv_power",
-			api.VirtualPsId,"pv_power_to_load", "",
-			entries.GetFloatValue("pv_power") - entries.GetFloatValue("pv_power_to_battery") - entries.GetFloatValue("pv_power_to_grid"))
+			api.VirtualPsId, "pv_power_to_load", "",
+			entries.GetFloatValue("pv_power")-entries.GetFloatValue("pv_power_to_battery")-entries.GetFloatValue("pv_power_to_grid"))
 
 		// Battery
 		entries.FromRefAddFloat("pv_power_to_battery",
-			api.VirtualPsId,"battery_power", "",
+			api.VirtualPsId, "battery_power", "",
 			entries.LowerUpper("pv_power_to_battery", "battery_power_to_load"))
 		entries.FromRefAddFloat("pv_power_to_battery",
-			api.VirtualPsId,"battery_power_to_grid", "",
+			api.VirtualPsId, "battery_power_to_grid", "",
 			0.0)
 
 		// Grid
 		entries.FromRefAddFloat("grid_power_to_load",
-			api.VirtualPsId,"grid_power", "",
+			api.VirtualPsId, "grid_power", "",
 			entries.LowerUpper("pv_power_to_grid", "grid_power_to_load"))
 		entries.FromRefAddFloat("grid_power_to_load",
-			api.VirtualPsId,"grid_power_to_battery", "",
+			api.VirtualPsId, "grid_power_to_battery", "",
 			0.0)
 
+		entries.FromRefAddState("pv_power", api.VirtualPsId, "pv_power_active", "")
+		entries.FromRefAddState("battery_power", api.VirtualPsId, "battery_power_active", "")
+		entries.FromRefAddState("grid_power", api.VirtualPsId, "grid_power_active", "")
+		entries.FromRefAddState("load_power", api.VirtualPsId, "load_power_active", "")
 
-		entries.FromRefAddState("pv_power", api.VirtualPsId,"pv_power_active", "")
-		entries.FromRefAddState("battery_power", api.VirtualPsId,"battery_power_active", "")
-		entries.FromRefAddState("grid_power", api.VirtualPsId,"grid_power_active", "")
-		entries.FromRefAddState("load_power", api.VirtualPsId,"load_power_active", "")
+		entries.FromRefAddState("pv_power_to_battery", api.VirtualPsId, "pv_power_to_battery_active", "")
+		entries.FromRefAddState("pv_power_to_load", api.VirtualPsId, "pv_power_to_load_active", "")
+		entries.FromRefAddState("pv_power_to_grid", api.VirtualPsId, "pv_power_to_grid_active", "")
 
-		entries.FromRefAddState("pv_power_to_battery", api.VirtualPsId,"pv_power_to_battery_active", "")
-		entries.FromRefAddState("pv_power_to_load", api.VirtualPsId,"pv_power_to_load_active", "")
-		entries.FromRefAddState("pv_power_to_grid", api.VirtualPsId,"pv_power_to_grid_active", "")
+		entries.FromRefAddState("battery_power_to_load", api.VirtualPsId, "battery_power_to_load_active", "")
+		entries.FromRefAddState("battery_power_to_grid", api.VirtualPsId, "battery_power_to_grid_active", "")
 
-		entries.FromRefAddState("battery_power_to_load", api.VirtualPsId,"battery_power_to_load_active", "")
-		entries.FromRefAddState("battery_power_to_grid", api.VirtualPsId,"battery_power_to_grid_active", "")
-
-		entries.FromRefAddState("grid_power_to_load", api.VirtualPsId,"grid_power_to_load_active", "")
-		entries.FromRefAddState("grid_power_to_battery", api.VirtualPsId,"grid_power_to_battery_active", "")
-
+		entries.FromRefAddState("grid_power_to_load", api.VirtualPsId, "grid_power_to_load_active", "")
+		entries.FromRefAddState("grid_power_to_battery", api.VirtualPsId, "grid_power_to_battery_active", "")
 
 		entries.FromRefAddFloat("pv_battery_charge",
 			api.VirtualPsId, "battery_energy", "",
 			entries.LowerUpper("pv_battery_charge", "battery_discharge"))
 
 		entries.FromRefAddFloat("pv_feed_in",
-			api.VirtualPsId,"grid_energy", "",
+			api.VirtualPsId, "grid_energy", "",
 			entries.LowerUpper("pv_feed_in", "daily_purchased_energy"))
-
 
 		// for _, pid := range entries.Order {
 		// 	// entries[pid].Index = i
@@ -584,7 +581,6 @@ func (e *EndPoint) GetData() api.DataMap {
 // 	}
 // 	return (value.ValueFloat / max.ValueFloat) * 100
 // }
-
 
 // func addState(now api.DateTime, point string, name string, state bool, index int) api.DataEntry {
 // 	return add(now, "virtual", point, name, api.UnitValue{ Value: fmt.Sprintf("%v", state), Unit: "binary"}, index)

@@ -1,17 +1,17 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/mmHa"
 	"errors"
 	"fmt"
-	"github.com/go-co-op/gocron"
-	"github.com/spf13/cobra"
 	"strconv"
 	"strings"
 	"time"
-)
 
+	"github.com/go-co-op/gocron"
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/mmHa"
+	"github.com/spf13/cobra"
+)
 
 func AttachCmdMqtt(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
@@ -28,7 +28,6 @@ func AttachCmdMqtt(cmd *cobra.Command) *cobra.Command {
 	}
 	cmd.AddCommand(cmdMqtt)
 	cmdMqtt.Example = PrintExamples(cmdMqtt, "run", "sync")
-
 
 	// ******************************************************************************** //
 	var cmdMqttRun = &cobra.Command{
@@ -63,7 +62,6 @@ func AttachCmdMqtt(cmd *cobra.Command) *cobra.Command {
 	return cmdMqtt
 }
 
-
 func (ca *CommandArgs) MqttArgs(cmd *cobra.Command, args []string) error {
 	for range Only.Once {
 		ca.Error = ca.ProcessArgs(cmd, args)
@@ -97,7 +95,7 @@ func (ca *CommandArgs) MqttArgs(cmd *cobra.Command, args []string) error {
 		LogPrintDate("Found SunGrow device %s id:%d serial:%s\n", model, id, serial)
 
 		LogPrintDate("Connecting to MQTT HASSIO Service...\n")
-		Cmd.Mqtt = mmHa.New(mmHa.Mqtt {
+		Cmd.Mqtt = mmHa.New(mmHa.Mqtt{
 			ClientId: "GoSunGrow",
 			Username: Cmd.MqttUsername,
 			Password: Cmd.MqttPassword,
@@ -130,7 +128,6 @@ func (ca *CommandArgs) MqttArgs(cmd *cobra.Command, args []string) error {
 
 	return Cmd.Error
 }
-
 
 func cmdMqttFunc(cmd *cobra.Command, _ []string) error {
 	return cmd.Help()
@@ -253,7 +250,7 @@ func MqttCron() error {
 		if Cmd.Mqtt.IsFirstRun() {
 			Cmd.Mqtt.UnsetFirstRun()
 		} else {
-			time.Sleep(time.Second * 40)	// Takes up to 40 seconds for data to come in.
+			time.Sleep(time.Second * 40) // Takes up to 40 seconds for data to come in.
 		}
 
 		newDay := false
@@ -296,7 +293,7 @@ func Update1(newDay bool) error {
 				r := data.Entries[o]
 
 				fmt.Printf("C")
-				re := mmHa.EntityConfig {
+				re := mmHa.EntityConfig{
 					Name:        r.Point.Id, // PointName,
 					SubName:     "",
 					ParentId:    r.EndPoint,
@@ -337,17 +334,17 @@ func Update1(newDay bool) error {
 			r := data.Entries[o]
 
 			fmt.Printf("U")
-			re := mmHa.EntityConfig {
-				Name:        r.Point.Id, // PointName,
-				SubName:     "",
-				ParentId:    r.EndPoint,
-				ParentName:  "",
-				UniqueId:    r.Point.Id,
+			re := mmHa.EntityConfig{
+				Name:       r.Point.Id, // PointName,
+				SubName:    "",
+				ParentId:   r.EndPoint,
+				ParentName: "",
+				UniqueId:   r.Point.Id,
 				// UniqueId:    r.Id,
 				FullId: r.Point.FullId,
 				// FullName:    r.Point.Name,
-				Units:       r.Point.Unit,
-				ValueName:   r.Point.Name,
+				Units:     r.Point.Unit,
+				ValueName: r.Point.Name,
 				// ValueName:   r.Id,
 				DeviceClass: "",
 				StateClass:  r.Point.Type,
@@ -390,17 +387,17 @@ func Update2(newDay bool) error {
 
 				fmt.Printf("C")
 
-				re := mmHa.EntityConfig {
-					Name:        r.Point.Id, // PointName,
-					SubName:     "",
-					ParentId:    r.EndPoint,
-					ParentName:  "",
-					UniqueId:    r.Point.Id,
+				re := mmHa.EntityConfig{
+					Name:       r.Point.Id, // PointName,
+					SubName:    "",
+					ParentId:   r.EndPoint,
+					ParentName: "",
+					UniqueId:   r.Point.Id,
 					// UniqueId:    r.Id,
 					FullId: r.Point.FullId,
 					// FullName:    r.Point.Name,
-					Units:       r.Point.Unit,
-					ValueName:   r.Point.Name,
+					Units:     r.Point.Unit,
+					ValueName: r.Point.Name,
 					// ValueName:   r.Id,
 					DeviceClass: "",
 					StateClass:  r.Point.Type,
@@ -426,17 +423,17 @@ func Update2(newDay bool) error {
 
 			fmt.Printf("U")
 
-			re := mmHa.EntityConfig {
-				Name:        r.Point.Id, // PointName,
-				SubName:     "",
-				ParentId:    r.EndPoint,
-				ParentName:  "",
-				UniqueId:    r.Point.Id,
+			re := mmHa.EntityConfig{
+				Name:       r.Point.Id, // PointName,
+				SubName:    "",
+				ParentId:   r.EndPoint,
+				ParentName: "",
+				UniqueId:   r.Point.Id,
 				// UniqueId:    r.Id,
 				FullId: r.Point.FullId,
 				// FullName:    r.Point.Name,
-				Units:       r.Point.Unit,
-				ValueName:   r.Point.Name,
+				Units:     r.Point.Unit,
+				ValueName: r.Point.Name,
 				// ValueName:   r.Id,
 				DeviceClass: "",
 				StateClass:  r.Point.Type,
@@ -461,7 +458,6 @@ func Update2(newDay bool) error {
 	}
 	return Cmd.Error
 }
-
 
 // func toggle(v string) string {
 // 	switch v {

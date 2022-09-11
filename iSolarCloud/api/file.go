@@ -1,15 +1,15 @@
 package api
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
+)
 
 func (ep *EndPointStruct) SetFilenamePrefix(format string, args ...interface{}) string {
 	if format != "" {
@@ -58,7 +58,6 @@ func (ep *EndPointStruct) GetFilePath() string {
 
 	return ret
 }
-
 
 // FileExists Checks for existance of a local file.
 func (ep *EndPointStruct) FileExists(fn string) bool {
@@ -139,7 +138,6 @@ func (ep *EndPointStruct) ApiReadDataFile(ref interface{}) error {
 func (ep *EndPointStruct) ApiWriteDataFile(ref interface{}) error {
 	return output.FileWrite(ep.GetJsonFilename(), ref, output.DefaultFileMode)
 }
-
 
 func (ep *EndPointStruct) ApiCacheFilename(request interface{}) string {
 	postfix := apiReflect.GetFingerprint(request)

@@ -1,8 +1,9 @@
 package getPsListByName
 
 import (
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/v1/powerStationService/getPsListByName"

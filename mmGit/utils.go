@@ -1,14 +1,14 @@
 package mmGit
 
 import (
-	"GoSungrow/Only"
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
 	"fmt"
 	"os"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+)
 
 func IsDirExists(path string) (bool, error) {
 	var ok bool
@@ -50,9 +50,9 @@ func GetHash(data string) string {
 	var ret string
 
 	for range Only.Once {
-			h := md5.New()
-			h.Write([]byte(data))
-			ret = hex.EncodeToString(h.Sum(nil))
+		h := md5.New()
+		h.Write([]byte(data))
+		ret = hex.EncodeToString(h.Sum(nil))
 	}
 
 	return ret

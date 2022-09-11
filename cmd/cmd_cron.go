@@ -1,22 +1,22 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
 	"fmt"
-	"github.com/go-co-op/gocron"
-	"github.com/spf13/cobra"
 	"os"
 	"strings"
 	"time"
-)
 
+	"github.com/go-co-op/gocron"
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/spf13/cobra"
+)
 
 type CronStruct struct {
 	Scheduler *gocron.Scheduler
-	Job *gocron.Job
+	Job       *gocron.Job
 }
-var Cron CronStruct
 
+var Cron CronStruct
 
 func AttachCmdCron(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
@@ -33,7 +33,6 @@ func AttachCmdCron(cmd *cobra.Command) *cobra.Command {
 	}
 	cmd.AddCommand(cmdCron)
 	cmdCron.Example = PrintExamples(cmdCron, "run 00 18 . . . sync default", "run 42 02 04 . . list all")
-
 
 	// ******************************************************************************** //
 	var cmdCronRun = &cobra.Command{
@@ -209,7 +208,6 @@ func cmdCronListFunc(_ *cobra.Command, _ []string) {
 		// }
 	}
 }
-
 
 func timeStamp() string {
 	return time.Now().UTC().Format(time.UnixDate) + " : "

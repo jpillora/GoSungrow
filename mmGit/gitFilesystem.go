@@ -1,15 +1,10 @@
 package mmGit
 
 import (
-	"GoSungrow/Only"
 	"bufio"
 	"context"
 	"errors"
 	"fmt"
-	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing"
-	"github.com/go-git/go-git/v5/plumbing/object"
-	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -18,8 +13,13 @@ import (
 	"strings"
 	"syscall"
 	"time"
-)
 
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
+	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
+	"github.com/jpillora/GoSungrow/Only"
+)
 
 func (z *Git) Connect() error {
 
@@ -115,7 +115,7 @@ func (z *Git) Clone() error {
 			break
 		}
 
-		options := &git.CloneOptions {
+		options := &git.CloneOptions{
 			URL:               z.RepoUrl,
 			Auth:              pk,
 			RemoteName:        "",
@@ -156,7 +156,7 @@ func (z *Git) Clone() error {
 }
 
 // GetSshAuth: Gitlab keys need to be created with at least 3072 bits.
-// ssh-keygen -t rsa -b 3072 -C 'root@everywhere' -f gitlab_rsa -N ''
+// ssh-keygen -t rsa -b 3072 -C 'root@everywhere' -f gitlab_rsa -N ”
 func (z *Git) GetSshAuth() *ssh.PublicKeys {
 	var pk *ssh.PublicKeys
 
@@ -168,7 +168,7 @@ func (z *Git) GetSshAuth() *ssh.PublicKeys {
 		var u *user.User
 		u, z.Error = user.Current()
 
-		paths := []string {
+		paths := []string{
 			z.KeyFile,
 			filepath.Join(u.HomeDir, ".ssh", "id_rsa"),
 		}
@@ -465,7 +465,7 @@ func (z *Git) Commit(msg string, args ...interface{}) error {
 			break
 		}
 
-		cn := &object.Signature {
+		cn := &object.Signature{
 			Name:  os.Getenv("USERNAME"),
 			Email: "",
 			When:  time.Now(),
@@ -519,7 +519,7 @@ func (z *Git) Pull() error {
 		}
 
 		fmt.Printf("Pulling Git\n\trepo: %s\n\tdir: %s\n", z.RepoUrl, z.RepoDir)
-		z.Error = z.worktree.Pull(&git.PullOptions {
+		z.Error = z.worktree.Pull(&git.PullOptions{
 			RemoteName:        "",
 			ReferenceName:     "",
 			SingleBranch:      false,
@@ -635,7 +635,7 @@ func (z *Git) Diff(path string) error {
 }
 
 type CommitDiffs struct {
-	Hash string
+	Hash     string
 	Contents string
 }
 

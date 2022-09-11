@@ -1,12 +1,12 @@
 package main
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/cmd"
 	"fmt"
 	"os"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/cmd"
+)
 
 // https://augateway.isolarcloud.com/v1/
 

@@ -2,10 +2,11 @@
 package PowerPointService
 
 import (
-	"GoSungrow/iSolarCloud/PowerPointService/queryPointDataTopOne"
-	"GoSungrow/iSolarCloud/api"
-	"GoSungrow/iSolarCloud/api/output"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/PowerPointService/queryPointDataTopOne"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 var _ api.Area = (*Area)(nil)

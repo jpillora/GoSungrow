@@ -1,13 +1,13 @@
 package nullEndPoint
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"errors"
 	"fmt"
-)
 
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
+)
 
 const Url = "%URL%"
 const Disabled = true
@@ -36,10 +36,10 @@ type ResultData struct {
 func (e *ResultData) IsValid() error {
 	var err error
 	switch {
-		case e.Dummy == "":
-			break
-		default:
-			err = errors.New(fmt.Sprintf("unknown error '%s'", e.Dummy))
+	case e.Dummy == "":
+		break
+	default:
+		err = errors.New(fmt.Sprintf("unknown error '%s'", e.Dummy))
 	}
 	return err
 }

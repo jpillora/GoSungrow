@@ -1,10 +1,11 @@
 package getPowerDevicePointInfo
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/api/apiReflect"
-	"GoSungrow/iSolarCloud/api/output"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/output"
 )
 
 const Url = "/v1/reportService/getPowerDevicePointInfo"
@@ -23,7 +24,6 @@ func (rd RequestData) Help() string {
 	return ret
 }
 
-
 type ResultData struct {
 	DeviceType    int64  `json:"device_type" PointId:"device_type" PointType:""`
 	ID            int64  `json:"id" PointId:"id" PointType:""`
@@ -36,12 +36,12 @@ type ResultData struct {
 
 func (e *ResultData) IsValid() error {
 	var err error
-		// switch {
-		// 	case e.Dummy == "":
-		// 		break
-		// 	default:
-		// 		err = errors.New(fmt.Sprintf("unknown error '%s'", e.Dummy))
-		// }
+	// switch {
+	// 	case e.Dummy == "":
+	// 		break
+	// 	default:
+	// 		err = errors.New(fmt.Sprintf("unknown error '%s'", e.Dummy))
+	// }
 	return err
 }
 
@@ -70,7 +70,7 @@ func (e *EndPoint) AddDataTable(table output.Table) output.Table {
 		if rd.ID == 0 {
 			break
 		}
-		_ = table.AddRow(rd.DeviceType, rd.ID, rd.Period, rd.PointID,rd.PointName, rd.ShowPointName, rd.TranslationID)
+		_ = table.AddRow(rd.DeviceType, rd.ID, rd.Period, rd.PointID, rd.PointName, rd.ShowPointName, rd.TranslationID)
 	}
 	return table
 }
@@ -94,7 +94,7 @@ func (e *EndPoint) GetDataTable() output.Table {
 			"Translation Id",
 		)
 		rd := e.Response.ResultData
-		_ = table.AddRow(rd.DeviceType, rd.ID, rd.Period, rd.PointID,rd.PointName, rd.ShowPointName, rd.TranslationID)
+		_ = table.AddRow(rd.DeviceType, rd.ID, rd.Period, rd.PointID, rd.PointName, rd.ShowPointName, rd.TranslationID)
 	}
 	return table
 }

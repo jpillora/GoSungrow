@@ -1,15 +1,16 @@
 package apiReflect
 
 import (
-	"GoSungrow/Only"
 	"crypto/md5"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"hash/fnv"
 	"runtime"
 	"strconv"
+
+	"github.com/davecgh/go-spew/spew"
+	"github.com/jpillora/GoSungrow/Only"
 
 	// "github.com/google/uuid"
 	"path/filepath"
@@ -213,25 +214,25 @@ func PrintHeader(i interface{}) string {
 	s := reflect.ValueOf(i) // .Elem()
 	typeOf := s.Type()
 	switch s.Kind().String() {
-		case "string":
-			ret = fmt.Sprintf("%v", s)
-		default:
-			for id := 0; id < s.NumField(); id++ {
-				// value := fmt.Sprintf("%v", s.Field(id).Interface())
-				// if value == "" {
-				//	continue
-				// }
-				ret += fmt.Sprintf("%s (%s),",
-					typeOf.Field(id).Name,
-					typeOf.Field(id).Tag.Get("json"),
-				)
-				// fmt.Printf("%d: %s %s = %v\n",
-				//	i,
-				//	typeOfT.Field(i).Name,
-				//	s.Field(i).Type(),
-				//	s.Field(i).Interface(),
-				// )
-			}
+	case "string":
+		ret = fmt.Sprintf("%v", s)
+	default:
+		for id := 0; id < s.NumField(); id++ {
+			// value := fmt.Sprintf("%v", s.Field(id).Interface())
+			// if value == "" {
+			//	continue
+			// }
+			ret += fmt.Sprintf("%s (%s),",
+				typeOf.Field(id).Name,
+				typeOf.Field(id).Tag.Get("json"),
+			)
+			// fmt.Printf("%d: %s %s = %v\n",
+			//	i,
+			//	typeOfT.Field(i).Name,
+			//	s.Field(i).Type(),
+			//	s.Field(i).Interface(),
+			// )
+		}
 	}
 
 	return ret
@@ -401,6 +402,7 @@ func ReflectAsJson(ref interface{}) string {
 }
 
 // FindInStruct Search a given structure for the State object and return its pointer.
+//
 //goland:noinspection GoUnusedFunction,GoUnusedExportedFunction
 func FindInStruct(ref interface{}, name string) interface{} {
 	var ret interface{}
@@ -601,15 +603,14 @@ func GetFingerprint(ref interface{}) string {
 	return ret
 }
 
-
 type DataStructureMap map[string]DataStructure
 type DataStructure struct {
-	Json string
-	PointId string
-	PointType string
-	PointUnit string
+	Json        string
+	PointId     string
+	PointType   string
+	PointUnit   string
 	PointDevice string
-	PointName string
+	PointName   string
 }
 
 func GetCallerPackage(skip int) string {
@@ -621,7 +622,7 @@ func GetCallerPackage(skip int) string {
 			slash = 0
 		}
 		dot := strings.IndexByte(funcName, '.')
-		ret = funcName[slash+1:dot]
+		ret = funcName[slash+1 : dot]
 	}
 	return ret
 }
@@ -750,25 +751,25 @@ func GetStructKeys(ref interface{}, keys ...string) StructKeys {
 		jValue := ""
 		value := ""
 		switch k.value.Type().Name() {
-			case "string":
-				value = k.Value().(string)
-			case "int":
-				v := k.Value().(int)
-				value = strconv.FormatInt(int64(v), 10)
-			case "int64":
-				value = strconv.FormatInt(k.Value().(int64), 10)
-			case "float64":
-				value = strconv.FormatFloat(k.Value().(float64), 'f', 6, 64)
-			default:
-				j, e := json.Marshal(k.Value())
-				if e == nil {
-					jValue = string(j)
-				} else {
-					jValue = fmt.Sprintf("%v", k.Value())
-				}
+		case "string":
+			value = k.Value().(string)
+		case "int":
+			v := k.Value().(int)
+			value = strconv.FormatInt(int64(v), 10)
+		case "int64":
+			value = strconv.FormatInt(k.Value().(int64), 10)
+		case "float64":
+			value = strconv.FormatFloat(k.Value().(float64), 'f', 6, 64)
+		default:
+			j, e := json.Marshal(k.Value())
+			if e == nil {
+				jValue = string(j)
+			} else {
+				jValue = fmt.Sprintf("%v", k.Value())
+			}
 		}
 
-		ret[k.Name()] = StructKey {
+		ret[k.Name()] = StructKey{
 			Name:      k.Name(),
 			JsonName:  k.Tag("json"),
 			JsonValue: jValue,

@@ -1,9 +1,10 @@
 package getConfigList
 
 import (
-	"GoSungrow/iSolarCloud/api/apiReflect"
 	"errors"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/iSolarCloud/api/apiReflect"
 )
 
 const Url = "/devDataHandleService/getConfigList"

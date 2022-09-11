@@ -1,12 +1,12 @@
 package cmd
 
 import (
-	"GoSungrow/Only"
-	"GoSungrow/iSolarCloud/AppService/login"
 	"fmt"
+
+	"github.com/jpillora/GoSungrow/Only"
+	"github.com/jpillora/GoSungrow/iSolarCloud/AppService/login"
 	"github.com/spf13/cobra"
 )
-
 
 func AttachCmdApi(cmd *cobra.Command) *cobra.Command {
 	// ******************************************************************************** //
@@ -26,7 +26,6 @@ func AttachCmdApi(cmd *cobra.Command) *cobra.Command {
 
 	cmdApi.PersistentFlags().StringVarP(&Cmd.ApiOutputType, flagApiOutputType, "o", "", fmt.Sprintf("Output type: 'json', 'raw', 'file'"))
 	_ = cmdApi.PersistentFlags().MarkHidden(flagApiOutputType)
-
 
 	// ******************************************************************************** //
 	var cmdApiList = &cobra.Command{
@@ -120,7 +119,6 @@ func AttachCmdApi(cmd *cobra.Command) *cobra.Command {
 
 	return cmdApi
 }
-
 
 func cmdApiFunc(cmd *cobra.Command, args []string) {
 	for range Only.Once {
