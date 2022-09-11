@@ -1,6 +1,6 @@
 module github.com/jpillora/GoSungrow
 
-go 1.17
+go 1.19
 
 require (
 	github.com/acarl005/textcol v0.0.0
