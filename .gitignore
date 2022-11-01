@@ -8,3 +8,4 @@ WebAppService_*.json
 /dist/
 /notgit/
 
+main.go
